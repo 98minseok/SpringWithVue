@@ -9,7 +9,7 @@
         props : {
             onClickFunction : {
                 type : Function,
-                default : () => {alert("버튼이 클릭됨")}
+                default : (evt) => {evt.preventDefault() ; alert("버튼이 클릭됨")}
             },
         },
         setup() {

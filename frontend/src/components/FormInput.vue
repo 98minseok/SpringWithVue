@@ -2,11 +2,14 @@
     <div class ="forminput-container">
         <label>{{ label }}</label>
         <div class ="separator"></div>
-        <input :type="type" :placeholder="placeholder">
+        <input :type="type" :name ="name" :placeholder="placeholder" :value="modelValue"
+        @input="$emit('update:modelValue', $event.target.value)">
     </div>
 </template>
 
 <script>
+import { ref } from 'vue';
+
     export default{
         props:{
             title : String,
@@ -15,9 +18,14 @@
             type : {
                 type : String,
                 default : "text"
-            }
+            },
+            name : String,
+            modelValue : String,
+        },
+        setup(props) {
         }
     }
+    
 </script>
 
 <style lang="css" scoped>
