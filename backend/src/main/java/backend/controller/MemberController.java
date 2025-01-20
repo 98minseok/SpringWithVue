@@ -16,11 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import backend.domain.Member;
 import backend.service.MemberService;
 import backend.util.ApiResponse;
+import backend.util.JwtUtil;
 
 @RestController
 public class MemberController {
     private final MemberService memberService;
-
+    private JwtUtil jwtUtil = new JwtUtil();
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
@@ -56,9 +57,25 @@ public class MemberController {
     	return new ApiResponse(ApiResponse.SUCCESS,"회원을 정상적으로 삭제했습니다.");
     }
     
-    @PutMapping("/members")
+    @PutMapping("/members")	
     public ApiResponse updateMember(@RequestBody Member member) {
     	memberService.updateMember(member);
         return new ApiResponse(ApiResponse.SUCCESS,"정보 수정이 완료되었습니다.");
+    }
+    
+    @PostMapping("/members/login")
+    public ApiResponse loginMembers(@RequestBody Member member) {
+
+    	if(!memberService.isExist(member)) return new ApiResponse(ApiResponse.FAILED,"아이디가 존재하지 않습니다.");
+    	else if(!memberService.isVerified(member)) return new ApiResponse(ApiResponse.FAILED,"비밀번호가 틀렸습니다.");
+    	
+    	String token = jwtUtil.generateToken(member.getLoginId());
+    	return new ApiResponse(ApiResponse.SUCCESS,"로그인에 성공하였습니다.",token);
+    }
+    
+    @GetMapping("/api/secure/test")
+    public ApiResponse testToken() {
+    	
+    	return new ApiResponse(ApiResponse.SUCCESS,"토큰을 사용한 접근에 성공");
     }
 }

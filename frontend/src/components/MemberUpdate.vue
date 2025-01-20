@@ -4,13 +4,11 @@
 
 <script>
 import CustomForm from '@/components/CustomForm.vue';
-import useAxios from '@/moduels/axios';
-import { getMemberById, getMembers,postMember, updateMember } from '@/api';
+import { getMemberById, updateMember } from '@/api';
 import { useRouter } from 'vue-router';
-import { inject, onMounted, reactive, ref } from 'vue';
+import { inject, onMounted,  ref } from 'vue';
 export default{
-    setup(props){
-        const {axiosPost , axiosGet} = useAxios();
+    setup(){
         const router = useRouter();
         const update_id = inject('update_id');
         const formData = ref([
@@ -50,12 +48,7 @@ export default{
             formData.value.forEach((e) => {
                 data[e.name] = evt.target.parentNode[e.name].value
             })
-            if(data["password"] !== data["passwordCheck"]){
-                message = "두 비밀번호가 서로 다릅니다."
-                alert(message);
-                return;
-            }
-
+            data.id = update_id.value;
             const response = await updateMember(data);
             
             if(response.status == "SUCCESS") {

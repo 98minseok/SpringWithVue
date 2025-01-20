@@ -1,7 +1,7 @@
 import axios from "axios"
-import useAxios from "./moduels/axios"
+import useCookies from "./moduels/cookies";
 
-const {axiosGet,axiosPost} = useAxios()
+const {getCookie} = useCookies();
 const BASED_URL = 'http://localhost:8080'
 const createURL = (url) => BASED_URL + url;
 export const getMembers = async() => {
@@ -49,8 +49,29 @@ export const getMemberById = async(id) => {
 
 export const updateMember = async(member) =>{
     console.log(member);
-    const data = await axios.put(createURL(`/members`,member)).then((res) => res.data)
+    const data = await axios.put(createURL(`/members`),member).then((res) => res.data)
     .catch((err) => console.log(err));
+
+    return data;
+}
+
+export const loginMember = async(member) => {
+
+    const data = await axios.post(createURL(`/members/login`),member).then((res) => res.data).
+    catch((err) => console.log(err));
+
+    return data;
+}
+
+export const testToken = async() => {
+    const cookie = getCookie("token");
+    console.log(cookie)
+    const data = await axios.get(createURL(`/api/secure/test`),{
+        headers : {
+            Authorization : `Bearer ${cookie}`
+        }
+    }).then((res) => res.data).
+    catch((err) => console.log(err));
 
     return data;
 }

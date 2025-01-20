@@ -17,6 +17,8 @@ import backend.util.ApiResponse;
 public class MemberService {
     private final MemberMapper memberMapper;
 
+    
+    
     public MemberService(MemberMapper memberMapper) {
         this.memberMapper = memberMapper;
     }
@@ -27,7 +29,7 @@ public class MemberService {
     
     @Transactional
     public boolean insertMember(Member member) {
-    	if(isDuplicate(member)) {
+    	if(isExist(member)) {
     		return false;
     	}
     	else {
@@ -49,12 +51,18 @@ public class MemberService {
     	return memberMapper.findByName(name);
     }
     
-    private boolean isDuplicate(Member member) {
+    public boolean isExist(Member member) {
     	return findById(member.getLoginId()) != null;
+    }
+    
+    public boolean isVerified(Member member) {
+    	return findById(member.getLoginId()).getPassword().equals(member.getPassword());
+    	
     }
     
     public void updateMember(Member member) {
     	memberMapper.update(member);
     }
+   
     
 }

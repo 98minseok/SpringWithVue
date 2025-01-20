@@ -17,6 +17,7 @@ export default defineConfig({
       "@assets": getAliasPath("./src/assets"),
       "@components": getAliasPath("./src/components"),
       "@view": getAliasPath("./src/view"),
+      "@moduels" : getAliasPath("./src/moduels"),
     },
   },
   // scss 전역 사용

@@ -12,7 +12,7 @@
     	VALUES(#{name},#{nickname},#{loginId},#{password},#{email})
     </insert>
     <select id ="findById" resultType="backend.domain.Member">
-    	SELECT * FROM member WHERE id = #{id}
+    	SELECT * FROM member WHERE login_id = #{id}
     </select>
     <select id ="findByName" resultType = "backend.domain.Member">
     	SELECT * FROM member WHERE name = #{name}
@@ -21,6 +21,6 @@
     	DELETE FROM member where id = #{id}
     </delete>
     <update id = "update" parameterType="backend.domain.Member">
-    	UPDATE member SET name = #{name} , nickname = #{nickname} , email = #{email}
+    	UPDATE member SET name = #{name} , nickname = #{nickname} , email = #{email} where id = #{id}
     </update>
 </mapper>

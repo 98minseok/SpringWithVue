@@ -2,7 +2,7 @@
     <div class ="main">
         <section class ="left-nav">
             <ul>
-                <li v-for="api in apis" class ="api-link" :class ="view_api == api ? 'active' : ''">
+                <li :key = "api" v-for="api in apis" class ="api-link" :class ="view_api == api ? 'active' : ''">
                     <a href="#" @click ="onClickApi(api)">{{ api }}</a>
                 </li>
             </ul>
@@ -20,12 +20,13 @@
 import MemberRegister from '@/components/MemberRegister.vue';
 import MemberList from '@/components/MemberList.vue';
 import MemberUpdate from '@/components/MemberUpdate.vue';
+import MemberLogin from '@/components/MemberLogin.vue';
 
-import { provide, reactive, ref } from 'vue';
+import { provide, ref } from 'vue';
 
     export default{
         setup(){
-            const apis = ["MemberRegister","MemberList","MemberUpdate"]
+            const apis = ["MemberRegister","MemberList","MemberUpdate","MemberLogin"]
             const update_id = ref(-1);
             provide('update_id',update_id)
             
@@ -40,7 +41,7 @@ import { provide, reactive, ref } from 'vue';
             }
         },
         components: {
-            MemberRegister,MemberList,MemberUpdate
+            MemberRegister,MemberList,MemberUpdate,MemberLogin
         }
     }
 </script>
