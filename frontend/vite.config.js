@@ -3,6 +3,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import vuetify from 'vite-plugin-vuetify';
 
 const getAliasPath = (path) => {
   return fileURLToPath(new URL(path, import.meta.url));
@@ -10,7 +11,7 @@ const getAliasPath = (path) => {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(),vueDevTools()],
+  plugins: [vue(),vueDevTools(),vuetify({autoImport: true})],
   resolve: {
     alias: {
       "@": getAliasPath("./src"),

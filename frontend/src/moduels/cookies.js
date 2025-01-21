@@ -5,7 +5,6 @@ const useCookies = () => {
           // eslint-disable-next-line no-useless-escape
           "(?:^|; )" + name + "=([^;]*)"
         ));
-        console.log(matches);
         return matches ? decodeURIComponent(matches[1]) : undefined;
       }
 

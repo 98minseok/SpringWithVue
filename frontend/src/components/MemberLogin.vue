@@ -1,14 +1,12 @@
 <template>
     <CustomForm :inputs="formData" :title="'로그인'" :onClickSubmit = "onClickSubmit">
     </CustomForm>
-
-    <button @click = "clickGetCookie">Get Cookie</button>
-    <button @click = "clickGetTokenTest">Get TokenTest</button>
+    <button @click="onClickTest"></button>
 </template>
 
 <script>
 import CustomForm from './CustomForm.vue';
-import { loginMember, testToken } from '@/api';
+import { loginMember ,testToken} from '@/api';
 import useCookie from '@moduels/cookies.js'
 
 export default{
@@ -26,10 +24,7 @@ export default{
                 value : "",
             },
         ]
-        const {setCookie,getCookie} = useCookie();
-        const clickGetCookie = () => {
-            getCookie("token");
-        }
+        const {setCookie} = useCookie();
         
         const onClickSubmit = async(evt) => {
             evt.preventDefault();
@@ -40,16 +35,16 @@ export default{
 
             const response = await loginMember(data);
             console.log(response);
-            setCookie("token",response.data)
+            setCookie("token",response.data.token)
+            setCookie("refreshToken",response.data.refreshToken)
             alert(response.msg);
         }
 
-        const clickGetTokenTest = async() => {
-            const response = await testToken()
-            console.log(response.msg);
+        const onClickTest = async() => {
+            await testToken()
         }
         return {
-            formData,onClickSubmit,clickGetCookie,clickGetTokenTest
+            formData,onClickSubmit,onClickTest
         }
     },
     components :{

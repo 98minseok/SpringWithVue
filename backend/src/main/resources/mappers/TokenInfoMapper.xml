@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="backend.mapper.TokenInfoMapper">
+    <insert id="save" parameterType="backend.domain.TokenInfo" useGeneratedKeys="true" keyProperty="id">
+    	INSERT INTO token_info(login_id,refresh_token) 
+    	VALUES(#{loginId},#{refreshToken})
+    </insert>
+    <select id ="findById" resultType="backend.domain.TokenInfo">
+    	SELECT * FROM token_info WHERE login_id = #{loginId} ORDER BY id desc Limit 1
+    </select>
+</mapper>

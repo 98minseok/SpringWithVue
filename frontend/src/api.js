@@ -1,5 +1,6 @@
 import axios from "axios"
 import useCookies from "./moduels/cookies";
+import apiClient from "./moduels/axios";
 
 const {getCookie} = useCookies();
 const BASED_URL = 'http://localhost:8080'
@@ -66,12 +67,15 @@ export const loginMember = async(member) => {
 export const testToken = async() => {
     const cookie = getCookie("token");
     console.log(cookie)
-    const data = await axios.get(createURL(`/api/secure/test`),{
+    const data = await apiClient(createURL(`/api/secure/test`),{
         headers : {
-            Authorization : `Bearer ${cookie}`
+            "Authorization" : `Bearer ${cookie}`,
+            "Content-Type" : 'text/html'
         }
-    }).then((res) => res.data).
-    catch((err) => console.log(err));
+    }).then((res) => res.data)
+    .catch((err) => {
+        console.log(err)
+    });
 
     return data;
 }

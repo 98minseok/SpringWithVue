@@ -1,49 +1,58 @@
 import axios from "axios"
+import useCookies from "./cookies"
 
-const useAxios = () => {
+const {getCookie,setCookie} = useCookies();
+const apiClient = axios.create({
+    baseURL : 'http://localhost:8080',
+    withCredentials : true,
+})
 
-    const BASED_URL = "http://localhost:8080"
-    const createURL = (url) => BASED_URL + url;
-    const axiosGet = async(url,onSuccess,onFailed) => await axios.get(createURL(url)).then((data) => {
-        if(onSuccess){
-            onSuccess(data);
-        }
-        else{
-            console.log(data);
-        }
-    }).catch((err) => {
-        if(onFailed){
-            onFailed(err)
-        }
-        else{
-            console.log(err);
-        }
-    })
-
-    const axiosPost = async(url,data,onSuccess,onFailed) => {
-        console.log(data,"axios")
-        return await axios.post(createURL(url),data,{
-        headers: {
-            'Content-Type': 'application/json' // 명시적으로 설정
-        },
-    }).then((data) => {
-        if(onSuccess){
-            onSuccess(data);    
-        }
-        else{
-            console.log(data);
-        }
-    }).catch((err) => {
-        if(onFailed){
-            onFailed(err)
-        }
-        else{
-            console.log(err);
-        }
-    })
-    }
-    return { axiosGet , axiosPost}
-    
+const refreshAccessToken = async() => {
+    try{
+        const response = await apiClient.post('/api/refreshtoken',{
+            refresh_token : getCookie('refreshToken')  
+        },{withCredentials:true})
+        return response.data
+    }catch (error) {
+        console.log(error);
+        console.error('Refresh Token 만료 또는 유효하지 않습니다.');
+        throw error;
+    }   
 }
 
-export default useAxios;
+apiClient.interceptors.response.use(
+    (response => response), // onFulFilled
+
+    async(error) => {
+        console.log("401 에러 이후 여기로 오게됨")
+        const originalRequest = error.config;
+
+        if(error.response && error.response.status === 401 && !originalRequest._retry){
+            originalRequest._retry = true;
+            try{
+                // Refresh Token을 이용하여 새로운 Access Token 발급
+                const responseTokens = await refreshAccessToken();  
+                console.log(responseTokens);
+                if(responseTokens.status == "SUCCESS"){   
+                    const newAccessToken = responseTokens.data.token;
+                    const newRefreshToken = responseTokens.data.refreshToken;
+                    setCookie('token',newAccessToken)
+                    setCookie('refreshToken',newRefreshToken)
+                    apiClient.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
+                    originalRequest.header['Authorization'] = `Bearer ${newAccessToken}`
+                }
+
+                return apiClient(originalRequest);
+            }catch (refreshError){
+                console.error('로그아웃 처리 필요');
+
+                return Promise.reject(refreshError)
+            }
+        }
+
+        return Promise.reject(error)
+    }
+)
+
+
+export default apiClient;

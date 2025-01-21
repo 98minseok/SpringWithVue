@@ -1,8 +1,12 @@
-package backend;
+package backend.filter;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import backend.util.JwtUtil;
+import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -10,9 +14,11 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class JwtFilter implements jakarta.servlet.Filter{
+public class JwtFilter implements Filter{
 
-	JwtUtil jwtUtil = new JwtUtil();
+	@Autowired
+	private JwtUtil jwtUtil;
+	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
@@ -21,11 +27,11 @@ public class JwtFilter implements jakarta.servlet.Filter{
 		 	HttpServletRequest httpRequest = (HttpServletRequest) request;
 	        HttpServletResponse httpResponse = (HttpServletResponse) response;
 	        String authHeader = httpRequest.getHeader("Authorization");
-	        System.out.println(authHeader);
+	        System.out.println("authHeader Value : " + authHeader);
 	        if (authHeader != null && authHeader.startsWith("Bearer ")) {
 	            String token = authHeader.substring(7);
-	            System.out.println(token);
 	            if (jwtUtil.validateToken(token)) {
+
 	                chain.doFilter(request, response); // 토큰이 유효하면 다음 필터로 진행
 	                return;
 	            }
