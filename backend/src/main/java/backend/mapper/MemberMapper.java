@@ -11,8 +11,9 @@ import backend.domain.Member;
 public interface MemberMapper {
     List<Member> findAll();
     void save(Member memeber);
-    Member findById(String id);
+    Member findByLoginId(String id);
     Member findByName(String name);
+    Member findById(Long id);
     void delete(Long id);
     void update(Member member);
 }

@@ -25,11 +25,12 @@
 import { reactive, ref } from 'vue';
 import FormInput from "@components/FormInput.vue"
 import ComponentOption from '@/components/ComponentOption.vue';
-import Form from '@/components/CustomForm.vue';
+import CustomForm from '@/components/CustomForm.vue';
 import CustomButton from '@/components/CustomButton.vue'
+import BoardList from '@/components/BoardList.vue';
     export default{
         setup(){
-            const components = ["FormInput","Form","CustomButton"]
+            const components = ["FormInput","Form","CustomButton","BoardList"]
             const component_props = reactive({
                 FormInput : {
                     label : "Default Label",
@@ -101,8 +102,9 @@ import CustomButton from '@/components/CustomButton.vue'
         components : {
             FormInput,
             ComponentOption,
-            Form,
-            CustomButton
+            CustomForm,
+            CustomButton,
+            BoardList
         }
     }
 </script>

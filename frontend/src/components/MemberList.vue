@@ -30,7 +30,7 @@
 </template>
 <script>
 import { getMembers,deleteMember } from '@/api';
-import { inject, onBeforeMount, onMounted, reactive, ref } from 'vue';
+import { inject, onBeforeMount, ref } from 'vue';
 import CustomButton from './CustomButton.vue';
 
 export default{
@@ -52,10 +52,8 @@ export default{
 
         onBeforeMount(async() => {
             const response = await getMembers();
-            let msg = "데이터를 가져오는데 실패하였습니다."
             if(response.status === "SUCCESS"){
                 member_data.value = response.data;
-                msg = response.msg;
             }
         })
 

@@ -1,7 +1,7 @@
 <template>
-    <button class ="custom-button" @click ="onClickFunction">
+    <v-btn @click ="onClickFunction">
         <slot>{{default_slot}}</slot>
-    </button>
+    </v-btn>
 </template>
 
 <script>

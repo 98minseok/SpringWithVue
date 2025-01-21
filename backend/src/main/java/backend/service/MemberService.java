@@ -43,8 +43,8 @@ public class MemberService {
     	memberMapper.delete(id);
     }
     
-    public Member findById(String id){
-    	return memberMapper.findById(id);
+    public Member findByLoginId(String id){
+    	return memberMapper.findByLoginId(id);
     }
     
     public Member findByName(String name) {
@@ -52,11 +52,11 @@ public class MemberService {
     }
     
     public boolean isExist(Member member) {
-    	return findById(member.getLoginId()) != null;
+    	return findByLoginId(member.getLoginId()) != null;
     }
     
     public boolean isVerified(Member member) {
-    	return findById(member.getLoginId()).getPassword().equals(member.getPassword());
+    	return findByLoginId(member.getLoginId()).getPassword().equals(member.getPassword());
     	
     }
     

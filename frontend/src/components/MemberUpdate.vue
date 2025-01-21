@@ -33,6 +33,7 @@ export default{
         onMounted(async() => {
             if(update_id.value != -1){
                 const response = await getMemberById(update_id.value)
+                console.log(response);
                 formData.value = formData.value.map(e => ({
                     ...e,
                     value: response.data[e.name] || ""

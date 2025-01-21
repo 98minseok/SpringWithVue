@@ -4,12 +4,11 @@
 
 <script>
 import CustomForm from '@/components/CustomForm.vue';
-import useAxios from '@/moduels/axios';
-import { getMembers,postMember } from '@/api';
+
+import { postMember } from '@/api';
 import { useRouter } from 'vue-router';
 export default{
     setup(){
-        const {axiosPost , axiosGet} = useAxios();
         const router = useRouter();
         const formData = [
             {
