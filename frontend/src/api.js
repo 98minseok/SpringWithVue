@@ -111,3 +111,36 @@ export const getBoardById = async(id) => {
     console.log(err);
   }
 }
+
+export const hitHeart = async(id) => {
+  try{
+    const data = await axios.post(createURL(`/board/${id}`),{})
+    return data;
+  }catch(err){
+    console.log(err);
+  }
+}
+
+
+export const editBoard = async(board) => {
+  const cookie = getCookie("token");
+  const data = await apiClient.put(createURL('/api/secure/board'),board,{
+    headers : {
+      "Authorization" : `Bearer ${cookie}`
+  }
+  }).then((res) => res.data)
+    .catch((err) => {
+        console.log(err)
+    })
+
+    return data;
+  }
+
+  export const deleteBoard = async(id) => {
+    try{
+      const data = await axios.delete(createURL(`/board/${id}`),{})
+      return data;
+    }catch(err){
+      console.log(err);
+    }
+  }

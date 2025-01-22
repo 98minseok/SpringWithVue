@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import { saveBoard } from '@/api';
-import { inject, ref } from 'vue';
+import { editBoard, getBoardById, saveBoard } from '@/api';
+import { inject, onMounted, ref } from 'vue';
 
   export default{
     setup(){
@@ -25,16 +25,36 @@ import { inject, ref } from 'vue';
       const title = ref("");
       const content = ref("");
       const loginUser = inject('loginUser')
+      const board_id = inject('board_id');
       const onClickSubmit = async function(evt){
         evt.preventDefault();
         const data = {
+          id : board_id.value == -1 ? '' : board_id.value,
           userId : loginUser.value,
           title : title.value,
           content : content.value
         }
-        const response = await saveBoard(data)
-        alert(response.msg);
+        if(board_id.value == -1){
+          const response = await saveBoard(data)
+          alert(response.msg);
+        }
+        else{
+          const response = await editBoard(data)
+          alert(response.msg);
+        }
+
+
       }
+      onMounted(async() => {
+        if(board_id != -1){
+          const response = await getBoardById(board_id.value);
+          const data = response.data.data
+          title.value = data.title
+          content.value = data.content
+
+
+        }
+      })
 
       return { onClickSubmit,title,content }
     }

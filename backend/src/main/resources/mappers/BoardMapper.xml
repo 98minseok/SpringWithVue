@@ -34,4 +34,16 @@
 				JOIN member m ON b.user_id = m.login_id
 				WHERE b.id = #{id};
         	</select>
+        	<update id = "hitBoard">
+        		update boards set view = view+1 where id = #{id}
+        	</update>
+        	<update id = "hitHeart">
+        		update boards set like_count = like_count +1 where id = #{id}
+        	</update>
+        	<update id = "edit">
+        		update boards set title = #{title}, content = #{content} where id = #{id}
+        	</update>
+        	<delete id = "delete">
+        		delete from boards where id = #{id}
+        	</delete>
         </mapper>	

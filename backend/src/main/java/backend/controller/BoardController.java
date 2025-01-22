@@ -1,8 +1,10 @@
 package backend.controller;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +26,12 @@ public class BoardController {
 		return new ApiResponse(ApiResponse.SUCCESS, "게시글 저장에 성공했습니다.");
 	}
 	
+	@PutMapping("/api/secure/board")
+	public ApiResponse editBoard(@RequestBody Board board) {
+		boardService.edit(board);
+		return new ApiResponse(ApiResponse.SUCCESS, "게시글 수정에 성공했습니다.");
+	}
+	
 	@GetMapping("board")
 	public ApiResponse getAllBoard() {
 		
@@ -32,6 +40,20 @@ public class BoardController {
 	
 	@GetMapping("board/{id}")
 	public ApiResponse getBoardById(@PathVariable long id) {
+		boardService.hitBoard(id);
 		return new ApiResponse(ApiResponse.SUCCESS,"게시글을 성공적으로 불러왔습니다.",boardService.findById(id));
 	}
+	
+	@PostMapping("board/{id}")
+	public ApiResponse hitHeart(@PathVariable long id) {
+				boardService.hitHeart(id);
+				return new ApiResponse(ApiResponse.SUCCESS,"좋아요 눌러짐 ! ");
+	}
+	
+	@DeleteMapping("board/{id}")
+	public ApiResponse deleteBoard(@PathVariable long id) {
+		boardService.delete(id);
+		return new ApiResponse(ApiResponse.SUCCESS,"삭제됨");
+}
+
 }

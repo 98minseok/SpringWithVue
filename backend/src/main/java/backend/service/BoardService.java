@@ -28,4 +28,20 @@ public class BoardService {
 	public BoardResponseDTO findById(long id) {
 		return boardMapper.findById(id);
 	}
+	
+	public void hitBoard(long id) {
+		boardMapper.hitBoard(id);
+	}
+	
+	public void hitHeart(long id) {
+		boardMapper.hitHeart(id);
+	}
+	
+	public void edit(Board board) {
+		boardMapper.edit(board);
+	}
+	
+	public void delete(long id) {
+		boardMapper.delete(id);
+	}
 }
