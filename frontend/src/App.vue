@@ -2,7 +2,7 @@
 import NavBar from '@components/NavBar.vue'
 
 import { getMembers } from './api';
-import { onMounted } from 'vue';
+import { onMounted, provide, ref } from 'vue';
 export default{
     components : {
         NavBar,
@@ -11,6 +11,10 @@ export default{
         onMounted(async() => {
             console.log(await getMembers())
         })
+
+        const loginUser = ref("")
+        provide('loginUser',loginUser);
+
     }
 }
 </script>

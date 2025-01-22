@@ -8,15 +8,16 @@
 import CustomForm from './CustomForm.vue';
 import { loginMember ,testToken} from '@/api';
 import useCookie from '@moduels/cookies.js'
+import { inject } from 'vue';
 
 export default{
     setup(){
         const formData = [
             {
                 label : "아이디",
-                name : "login_id",  
+                name : "login_id",
                 value : ""
-            },  
+            },
             {
                 label : "비밀번호",
                 name : "password",
@@ -25,7 +26,7 @@ export default{
             },
         ]
         const {setCookie} = useCookie();
-        
+        const loginUser = inject('loginUser');
         const onClickSubmit = async(evt) => {
             evt.preventDefault();
             const data = {};
@@ -37,6 +38,7 @@ export default{
             console.log(response);
             setCookie("token",response.data.token)
             setCookie("refreshToken",response.data.refreshToken)
+            loginUser.value = data.login_id;
             alert(response.msg);
         }
 

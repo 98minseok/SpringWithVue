@@ -30,8 +30,7 @@ public class JwtFilter implements Filter{
 	        System.out.println("authHeader Value : " + authHeader);
 	        if (authHeader != null && authHeader.startsWith("Bearer ")) {
 	            String token = authHeader.substring(7);
-	            if (jwtUtil.validateToken(token)) {
-
+	            if (jwtUtil.validateToken(token)) {	
 	                chain.doFilter(request, response); // 토큰이 유효하면 다음 필터로 진행
 	                return;
 	            }

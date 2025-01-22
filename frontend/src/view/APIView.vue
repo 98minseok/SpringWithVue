@@ -21,15 +21,16 @@ import MemberRegister from '@/components/MemberRegister.vue';
 import MemberList from '@/components/MemberList.vue';
 import MemberUpdate from '@/components/MemberUpdate.vue';
 import MemberLogin from '@/components/MemberLogin.vue';
-
+import BoardForm from '@/components/BoardForm.vue'
+import BoardList from '@/components/BoardList.vue';
 import { provide, ref } from 'vue';
 
     export default{
         setup(){
-            const apis = ["MemberRegister","MemberList","MemberUpdate","MemberLogin"]
+            const apis = ["MemberRegister","MemberList","MemberUpdate","MemberLogin","BoardForm","BoardList"]
             const update_id = ref(-1);
             provide('update_id',update_id)
-            
+
             const view_api = ref("")
             provide('view_api',view_api)
             const onClickApi = (api) => {
@@ -41,7 +42,7 @@ import { provide, ref } from 'vue';
             }
         },
         components: {
-            MemberRegister,MemberList,MemberUpdate,MemberLogin
+            MemberRegister,MemberList,MemberUpdate,MemberLogin,BoardForm,BoardList
         }
     }
 </script>

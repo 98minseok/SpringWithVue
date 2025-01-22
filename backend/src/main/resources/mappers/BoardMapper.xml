@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+        <mapper namespace = "backend.mapper.BoardMapper">
+        	<select id = "findAll" resultType="backend.DTO.BoardResponseDTO">
+        		SELECT 
+				    ROW_NUMBER() OVER (ORDER BY b.create_at DESC) AS no,
+				    m.nickname AS author,
+				    b.title AS title,
+				    b.content AS content,
+				    b.update_at AS date,
+				    b.view AS view,
+				    b.like_count AS likeCount
+				FROM boards b 
+				JOIN member m ON b.user_id = m.login_id;
+        	</select>
+        	<insert id = "save" parameterType="backend.domain.Board" useGeneratedKeys="true" keyProperty="id">
+				INSERT INTO boards(user_id,title,content) VALUES (#{userId},#{title},#{content})
+        	</insert>
+        </mapper>

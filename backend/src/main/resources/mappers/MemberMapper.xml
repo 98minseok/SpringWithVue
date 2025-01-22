@@ -12,10 +12,10 @@
     	VALUES(#{name},#{nickname},#{loginId},#{password},#{email})
     </insert>
     <select id ="findById" resultType="backend.domain.Member">
-    	SELECT * FROM member WHERE login_id = #{loginId}
+    	SELECT * FROM member WHERE id = #{id}
     </select>
      <select id ="findByLoginId" resultType="backend.domain.Member">
-    	SELECT * FROM member WHERE id = #{id}
+    	SELECT * FROM member WHERE login_id = #{loginId}
     </select>
     <select id ="findByName" resultType = "backend.domain.Member">
     	SELECT * FROM member WHERE name = #{name}

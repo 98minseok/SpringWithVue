@@ -3,6 +3,8 @@ package backend;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import backend.mapper.BoardMapper;
+import backend.service.BoardService;
 import backend.util.JwtUtil;
 
 @SpringBootTest
@@ -21,5 +23,5 @@ class BackendApplicationTests {
 	    boolean isValid = jwtUtil.validateToken(token);
 	    System.out.println("Is Token Valid: " + isValid);  // true여야 합니다.
 	}
-
+	
 }

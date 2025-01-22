@@ -2,7 +2,7 @@
     <div class ="main">
         <section class ="left-nav">
             <ul>
-                <li v-for="component in components" class ="component-link" :class ="view_component == component ? 'active' : ''">
+                <li :key = "component" v-for="component in components" class ="component-link" :class ="view_component == component ? 'active' : ''">
                     <a href="#" @click ="onClickComponent(component)">{{ component }}</a>
                 </li>
             </ul>
@@ -89,7 +89,7 @@ import BoardList from '@/components/BoardList.vue';
                     }
                 }
             })
-            
+
             const view_component = ref("")
             const onClickComponent = (component) => {
                 view_component.value = component;

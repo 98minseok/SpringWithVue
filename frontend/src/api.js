@@ -14,7 +14,7 @@ export const getMembers = async() => {
     console.log(data);
 
     return data;
-}  
+}
 
 export const postMember = async(member) => {
     const data = await axios.post(createURL("/members"),member)
@@ -78,4 +78,27 @@ export const testToken = async() => {
     });
 
     return data;
+}
+
+export const saveBoard = async(board) => {
+  const cookie = getCookie("token");
+  const data = await apiClient.post(createURL('/api/secure/board'),board,{
+    headers : {
+      "Authorization" : `Bearer ${cookie}`
+  }
+  }).then((res) => res.data)
+    .catch((err) => {
+        console.log(err)
+    })
+
+    return data;
+  }
+
+export const getBoards = async() => {
+  try{
+    const data = await axios.get(createURL('/board'))
+    return data;
+  }catch(err){
+    console.log(err);
+  }
 }
