@@ -3,11 +3,13 @@ package backend.DTO;
 import java.util.Date;
 
 public class BoardResponseDTO {
+	private int id;
 	private int no;
 	private String author;
 	private String title;
 	private Date date;
 	private int view;
+	private String content;
 	private int likeCount;
 	
 	public int getNo() {
@@ -46,7 +48,23 @@ public class BoardResponseDTO {
 	public void setLikeCount(int likeCount) {
 		this.likeCount = likeCount;
 	}
-
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
+	
+	
+	
 	
 	
 }

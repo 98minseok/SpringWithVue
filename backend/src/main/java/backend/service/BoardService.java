@@ -24,4 +24,8 @@ public class BoardService {
 	public List<BoardResponseDTO> findAll(){
 		return boardMapper.findAll();
 	}
+	
+	public BoardResponseDTO findById(long id) {
+		return boardMapper.findById(id);
+	}
 }

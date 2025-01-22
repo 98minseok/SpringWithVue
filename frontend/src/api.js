@@ -102,3 +102,12 @@ export const getBoards = async() => {
     console.log(err);
   }
 }
+
+export const getBoardById = async(id) => {
+  try{
+    const data = await axios.get(createURL(`/board/${id}`))
+    return data;
+  }catch(err){
+    console.log(err);
+  }
+}

@@ -12,4 +12,5 @@ public interface BoardMapper {
 	
 	public void save(Board board);
 	public List<BoardResponseDTO> findAll();
+	public BoardResponseDTO findById(long id);
 }

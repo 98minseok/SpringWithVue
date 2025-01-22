@@ -47,6 +47,10 @@ public class MemberService {
     	return memberMapper.findByLoginId(id);
     }
     
+    public Member findById(Long id){
+    	return memberMapper.findById(id);
+    }
+    
     public Member findByName(String name) {
     	return memberMapper.findByName(name);
     }

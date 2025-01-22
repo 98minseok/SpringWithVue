@@ -60,8 +60,8 @@ public class MemberController {
     }
     
     @GetMapping("/members/id/{id}")
-    public ApiResponse findById(@PathVariable String id) {
-    	return new ApiResponse(ApiResponse.SUCCESS, "Data를 성공적으로 가져왔습니다", memberService.findByLoginId(id));
+    public ApiResponse findById(@PathVariable Long id) {
+    	return new ApiResponse(ApiResponse.SUCCESS, "Data를 성공적으로 가져왔습니다", memberService.findById(id));
     }
     
     @DeleteMapping("/members")

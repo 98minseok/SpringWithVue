@@ -24,13 +24,15 @@ import MemberLogin from '@/components/MemberLogin.vue';
 import BoardForm from '@/components/BoardForm.vue'
 import BoardList from '@/components/BoardList.vue';
 import { provide, ref } from 'vue';
+import BoardDetail from '@/components/BoardDetail.vue';
 
     export default{
         setup(){
-            const apis = ["MemberRegister","MemberList","MemberUpdate","MemberLogin","BoardForm","BoardList"]
+            const apis = ["MemberRegister","MemberList","MemberUpdate","MemberLogin","BoardForm","BoardList","BoardDetail"]
             const update_id = ref(-1);
+            const board_id = ref(-1);
             provide('update_id',update_id)
-
+            provide('board_id',board_id);
             const view_api = ref("")
             provide('view_api',view_api)
             const onClickApi = (api) => {
@@ -42,7 +44,7 @@ import { provide, ref } from 'vue';
             }
         },
         components: {
-            MemberRegister,MemberList,MemberUpdate,MemberLogin,BoardForm,BoardList
+            MemberRegister,MemberList,MemberUpdate,MemberLogin,BoardForm,BoardList,BoardDetail
         }
     }
 </script>

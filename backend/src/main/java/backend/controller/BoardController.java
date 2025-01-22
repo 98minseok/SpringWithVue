@@ -1,6 +1,7 @@
 package backend.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,5 +28,10 @@ public class BoardController {
 	public ApiResponse getAllBoard() {
 		
 		return new ApiResponse(ApiResponse.SUCCESS,"게시글을 성공적으로 불러왔습니다.",boardService.findAll());
+	}
+	
+	@GetMapping("board/{id}")
+	public ApiResponse getBoardById(@PathVariable long id) {
+		return new ApiResponse(ApiResponse.SUCCESS,"게시글을 성공적으로 불러왔습니다.",boardService.findById(id));
 	}
 }
