@@ -144,3 +144,53 @@ export const editBoard = async(board) => {
       console.log(err);
     }
   }
+
+
+  export const getReply = async(parentId) => {
+
+    const data = await apiClient.get(createURL(`/reply/${parentId}`))
+    .then((res) => res.data)
+      .catch((err) => {
+          console.log(err)
+      })
+
+      return data;
+  }
+
+
+  export const saveReply = async(reply) => {
+    const cookie = getCookie("token");
+    const data = await apiClient.post(createURL('/api/secure/reply'),reply,{
+      headers : {
+        "Authorization" : `Bearer ${cookie}`
+    }
+    }).then((res) => res.data)
+      .catch((err) => {
+          console.log(err)
+      })
+
+      return data;
+    }
+
+  export const editReply = async(reply) => {
+    const cookie = getCookie("token");
+    const data = await apiClient.put(createURL('/api/secure/reply'),reply,{
+      headers : {
+        "Authorization" : `Bearer ${cookie}`
+    }
+    }).then((res) => res.data)
+      .catch((err) => {
+          console.log(err)
+      })
+
+      return data;
+    }
+
+  export const deleteReply = async(id) => {
+    try{
+      const data = await axios.delete(createURL(`/reply/${id}`),{})
+      return data.data;
+    }catch(err){
+      console.log(err);
+    }
+  }

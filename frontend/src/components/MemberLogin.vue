@@ -32,6 +32,7 @@ export default{
             const data = {};
             formData.forEach((e) => {
                 data[e.name] = e.value
+                e.value = ""
             })
 
             const response = await loginMember(data);
