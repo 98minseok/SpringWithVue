@@ -41,6 +41,7 @@
          }
          const boards = ref([]);
          onMounted(async() => {
+          board_id.value = -1
           const response = await getBoards()
           boards.value = response.data.data
           console.log(response.data);

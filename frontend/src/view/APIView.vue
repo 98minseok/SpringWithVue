@@ -18,6 +18,7 @@
 
 <script>
 import MemberRegister from '@/components/MemberRegister.vue';
+import FileInput from '@/components/FileInput.vue'
 import MemberList from '@/components/MemberList.vue';
 import MemberUpdate from '@/components/MemberUpdate.vue';
 import MemberLogin from '@/components/MemberLogin.vue';
@@ -28,7 +29,7 @@ import BoardDetail from '@/components/BoardDetail.vue';
 
     export default{
         setup(){
-            const apis = ["MemberRegister","MemberList","MemberUpdate","MemberLogin","BoardForm","BoardList","BoardDetail"]
+            const apis = ["MemberRegister","MemberList","MemberUpdate","MemberLogin","BoardForm","BoardList","BoardDetail","FileInput"]
             const update_id = ref(-1);
             const board_id = ref(-1);
             provide('update_id',update_id)
@@ -38,13 +39,12 @@ import BoardDetail from '@/components/BoardDetail.vue';
             const onClickApi = (api) => {
                 view_api.value = api;
             }
-
             return{
                 view_api,onClickApi,apis,
             }
         },
         components: {
-            MemberRegister,MemberList,MemberUpdate,MemberLogin,BoardForm,BoardList,BoardDetail
+            MemberRegister,MemberList,MemberUpdate,MemberLogin,BoardForm,BoardList,BoardDetail,FileInput
         }
     }
 </script>

@@ -194,3 +194,23 @@ export const editBoard = async(board) => {
       console.log(err);
     }
   }
+
+
+  export const sendFile = async(file) => {
+
+    let formData = new FormData();
+    console.log(file[0]);
+    formData.append("file", file[0])
+    console.log(formData);
+
+    try{
+      const data = await axios.post(createURL(`api/files/upload`),formData,{
+        headers : {
+          "Content-Type" : "multipart/form-data"
+        }
+      })
+      return data.data;
+    }catch(err){
+      console.log(err);
+    }
+  }
